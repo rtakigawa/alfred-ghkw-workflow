@@ -75,12 +75,13 @@ func run() {
 
 	if len(args) == 1 {
 		lang := args[0]
+
+		createLanguages()
+		wf.Filter(lang)
+
 		if validLanguage(lang) {
 			wf.NewItem("search keywords").
 				Title("Please enter the keyword to search")
-		} else {
-			createLanguages()
-			wf.Filter(args[0])
 		}
 	}
 
@@ -115,7 +116,9 @@ func createLanguages() {
 
 func validLanguage(lang string) bool {
 	for _, l := range languages {
-		return l == lang
+		if l == lang {
+			return true
+		}
 	}
 	return false
 }
